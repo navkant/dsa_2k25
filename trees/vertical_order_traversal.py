@@ -1,17 +1,19 @@
-# Given a binary tree, return the level order traversal of its 
-# nodes' values. (i.e., from left to right, level by level).
+# Given a binary tree, return a 2-D array with vertical order traversal of it.
+# Go through the example and image for more details.
 
-
+# Definition for a  binary tree node
 class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
+	def __init__(self, x):
+		self.val = x
+		self.left = None
+		self.right = None
 
 
 class Solution:
-    # @param A : root node of tree
-    # @return a list of list of integers
+	# @param A : root node of tree
+	# @return a list of list of integers
+	
+        
     def __init__(self):
         self.level_map = {}
     
@@ -24,19 +26,16 @@ class Solution:
         else:
             self.level_map[level].append(node.val)
 
-        self.level_order_traversal(node.left, level=level+1)
+        self.level_order_traversal(node.left, level=level-1)
         self.level_order_traversal(node.right, level=level+1)
-        
 
-    def solve(self, A):
+    def verticalOrderTraversal(self, A):
         self.level_order_traversal(A, 0)
         result_matrix = []
-
-        for key, val in self.level_map.items():
-            result_matrix.append(val)
         
+        for key in sorted(self.level_map.keys()):
+            result_matrix.append(self.level_map[key])
         return result_matrix
-
 
 
 if __name__ == "__main__":
@@ -69,4 +68,4 @@ if __name__ == "__main__":
     node6.right = node9
 
     obj = Solution()
-    print(obj.solve(node1))
+    print(obj.verticalOrderTraversal(node1))

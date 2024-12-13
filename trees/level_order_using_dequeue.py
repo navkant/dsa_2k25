@@ -33,6 +33,9 @@ class Solution:
     # @param A : root node of tree
     # @return a list of list of integers
     def solve(self, A):
+        if A is None:
+            return []
+        
         dq = DeQueue()
         dq.enqueue(A)
         ans = []
