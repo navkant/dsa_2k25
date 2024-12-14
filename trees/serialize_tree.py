@@ -1,5 +1,8 @@
+# Given the root node of a Binary Tree denoted by A. You have to Serialize the given Binary Tree in the described format.
+# Serialize means encode it into a integer array denoting the Level Order Traversal of the given Binary Tree.
 from collections import deque
-# Definition for a  binary tree node
+
+
 class TreeNode:
    def __init__(self, x):
        self.val = x
@@ -9,29 +12,32 @@ class TreeNode:
 
 class Solution:
     # @param A : root node of tree
-    # @return a list of list of integers
+    # @return a list of integers
+
     def solve(self, A):
-        if A is None:
-            return []
-        
         dq = deque()
         dq.append(A)
         ans = []
-
         while dq:
-            level_array = []
-            level_size = len(dq)
+            lvl_size = len(dq)
+            lvl_array = []
+            for i in range(lvl_size):
+                node = dq.popleft()
+                if node != -1:
+                    lvl_array.append(node.val)
+                    if node.left:
+                        dq.append(node.left)
+                    else:
+                        dq.append(-1)
 
-            for i in range(level_size):
-                element = dq.popleft()
-                level_array.append(element.val)
+                    if node.right:
+                        dq.append(node.right)
+                    else:
+                        dq.append(-1)
+                else:
+                    lvl_array.append(node)
+            ans += lvl_array
 
-                if element.left:
-                    dq.append(element.left)
-                
-                if element.right:
-                    dq.append(element.right)
-            ans.append(level_array)
         return ans
 
 
