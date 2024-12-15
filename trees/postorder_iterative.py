@@ -11,26 +11,24 @@ class Solution:
     # @return a list of integers
     def __init__(self):
         self.stack = []
-        self.inorder = []
+        self.postorder = []
 
     def postorderIterativeTraversal(self, A):
-        node = A
+        root = A
+        self.stack.append(root)
 
-        while node:
-            self.stack.append(node)
+        while self.stack:
+            node = self.stack.pop()
+            self.postorder.append(node.val)
+
             if node.left:
-                node = node.left
-            elif self.stack:
-                while self.stack and self.stack[-1].right is None:
-                    temp = self.stack.pop()
-                if self.stack:
-                    temp = self.stack.pop()
-                    node = temp.right
-                else:
-                    break
-            else:
-                break
-        return self.inorder
+                self.stack.append(node.left)
+            if node.right:
+                self.stack.append(node.right)
+
+        return self.postorder[::-1]
+
+
 
 
 if __name__ == "__main__":

@@ -14,24 +14,17 @@ class Solution:
         self.inorder = []
 
     def inorderIterativeTraversal(self, A):
-        node = A
+        root = A
 
-        while node:
-            self.stack.append(node)
-            if node.left:
-                node = node.left
-            elif self.stack:
-                while self.stack and self.stack[-1].right is None:
-                    temp = self.stack.pop()
-                    self.inorder.append(temp.val)
-                if self.stack:
-                    temp = self.stack.pop()
-                    node = temp.right
-                    self.inorder.append(temp.val)
-                else:
-                    break
+        while root or self.stack:
+            if root:
+                self.stack.append(root)
+                root = root.left
             else:
-                break
+                root = self.stack.pop()
+                self.inorder.append(root.val)
+                root = root.right
+
         return self.inorder
 
 
