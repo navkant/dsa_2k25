@@ -11,27 +11,22 @@ class Solution:
     # @return a list of integers
     def __init__(self):
         self.stack = []
-        self.inorder = []
+        self.preorder = []
 
     def preorderIterativeTraversal(self, A):
-        node = A
+        root = A
+        self.stack.append(root)
 
-        while node:
-            self.inorder.append(node.val)
-            self.stack.append(node)
+        while self.stack:
+            node = self.stack.pop()
+            self.preorder.append(node.val)
+
+            if node.right:
+                self.stack.append(node.right)
             if node.left:
-                node = node.left
-            elif self.stack:
-                while self.stack and self.stack[-1].right is None:
-                    temp = self.stack.pop()
-                if self.stack:
-                    temp = self.stack.pop()
-                    node = temp.right
-                else:
-                    break
-            else:
-                break
-        return self.inorder
+                self.stack.append(node.left)
+
+        return self.preorder
 
 
 if __name__ == "__main__":
