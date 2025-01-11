@@ -1,5 +1,5 @@
-# Given the root of a tree A with each node having a certain value, find the count of nodes with more value than all its ancestors.
-# Ancestor means that every node that occurs before the current node in the path from root to the node.
+# Given the root of a tree A with each node having a certain value, find the count of nodes with more value than all
+# its ancestors. Ancestor means that every node that occurs before the current node in the path from root to the node.
 
 # Definition for a  binary tree node
 class TreeNode:
@@ -16,20 +16,21 @@ class Solution:
     def count_nodes(self, node, max_so_far):
         if node is None:
             return 0
+        ans = 0
 
         if node.val > max_so_far:
-            self.count += 1
+            ans += 1
             max_so_far = node.val
 
-        self.count_nodes(node.left, max_so_far)
-        self.count_nodes(node.right, max_so_far)
+        ans += self.count_nodes(node.left, max_so_far)
+        ans += self.count_nodes(node.right, max_so_far)
 
+        return ans
 
     # @param root, a tree node
     # @return nothing
     def solve(self, root):
-        self.count_nodes(root, max_so_far=0)
-        return self.count
+        return self.count_nodes(root, max_so_far=0)
 
 
 if __name__ == "__main__":
