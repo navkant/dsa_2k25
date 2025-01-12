@@ -5,13 +5,34 @@
 
 class Solution:
     def maxone(self, A, B):
-        pass
-        
+        n = len(A)
+        l = r = 0
+        zero_count = 0
+        ans = 0
+
+        while r < n:
+            if A[r] == 1:
+                r += 1
+            else:
+                if zero_count < B:
+                    zero_count += 1
+                    r += 1
+                else:
+                    while l <= r and zero_count >= B:
+                        if A[l] == 1:
+                            pass
+                        else:
+                            zero_count -= 1
+                        l += 1
+
+            ans = max(ans, r - l)
+
+        return ans
 
 
 if __name__ == '__main__':
-    a = [1, 0, 0, 0, 1, 0, 1]
-    b = 2
+    a = [1, 1, 0, 1, 1, 0, 0, 1, 1, 1]
+    b = 1
     obj = Solution()
     ans = obj.maxone(a, b)
     print(f'ans is {ans}')
